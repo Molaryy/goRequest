@@ -1,13 +1,51 @@
 #include <SFML/Graphics.hpp>
+#include "iostream"
 #define WIDTH 1920
 #define HEIGHT 1080
 
+using namespace sf;
+using namespace std;
+
+class mainApp;
+void print(mainApp *obj);
+
+
+class button {
+    public:
+        RectangleShape button;
+
+
+    void createButton(Vector2f size, Color fillColor)
+    {
+        this->button.setSize(size);
+        this->button.setFillColor(fillColor);
+    }
+
+    void setButtonTexture(Texture *texture)
+    {
+        this->button.setTexture(texture, false);
+    }
+
+    bool isButtonClicked(Vector2i mousePos) {
+        Vector2f buttonPos = this->button.getPosition();
+        Vector2f buttonSize = this->button.getSize();
+
+        if (static_cast<float>(mousePos.x) >= buttonPos.x
+        && static_cast<float>(mousePos.x) <= (buttonPos.x - buttonSize.x)
+        && static_cast<float>(mousePos.y) >= buttonPos.y
+        && static_cast<float>(mousePos.y) <= (buttonPos.y + buttonSize.y)) {
+            return true;
+        }
+        return false;
+    }
+};
+
 class mainApp {
     public:
-        sf::VideoMode vMode;
-        sf::RenderWindow window;
-        sf::Event event;
-        sf::Vector2i mousePos;
+        VideoMode vMode;
+        RenderWindow window;
+        Event event{};
+        Vector2i mousePos;
 
     void initGame()
     {
@@ -17,14 +55,14 @@ class mainApp {
 
     void eventsApp() {
         while (this->window.pollEvent(this->event)) {
-            this->mousePos = sf::Mouse::getPosition();
-            if (this->event.type == sf::Event::Closed) {
+            this->mousePos = Mouse::getPosition();
+            if (this->event.type == Event::Closed) {
                 this->window.close();
             }
         }
     }
 
-    void startApp(sf::CircleShape circle) {
+    void startApp(CircleShape circle) {
         this->initGame();
         while (this->window.isOpen()) {
             this->eventsApp();
@@ -32,16 +70,21 @@ class mainApp {
             this->window.clear();
             this->window.draw(circle);
             this->window.display();
+            print(this);
         }
     }
 };
 
+void print(mainApp *obj) {
+    cout << obj->mousePos.x << "\n";
+}
+
 int main()
 {
     mainApp app;
-    sf::CircleShape circle(100.f);
+    CircleShape circle(100.f);
 
-    circle.setFillColor(sf::Color::Green);
+    circle.setFillColor(Color::Green);
     app.startApp(circle);
     return 0;
 }
