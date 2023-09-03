@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "iostream"
+#include "jb_int.hpp"
 #define WIDTH 1920
 #define HEIGHT 1080
 
@@ -79,12 +79,7 @@ void print(mainApp *obj) {
     cout << obj->mousePos.x << "\n";
 }
 
-int main()
+int main(int ac, char **av)
 {
-    mainApp app;
-    CircleShape circle(100.f);
-
-    circle.setFillColor(Color::Green);
-    app.startApp(circle);
     return 0;
 }

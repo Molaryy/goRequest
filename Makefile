@@ -6,17 +6,26 @@ OBJ = $(SRC:.cpp=.o)
 
 SFML = -lsfml-system -lsfml-window -lsfml-graphics
 
-CPPFLAGS = -I includes/ -Wall -Wextra -lm
+CPPFLAGS = -Wall -Wextra -W -I includes/
 
 NAME = goRequest
 
+JB_LIB = -L./lib -ljb
+
 all: $(OBJ)
-	@ g++ -o $(NAME) $(OBJ) $(SFML) $(CPPFLAGS)
+	@$(MAKE) -sC lib/jb --no-print-directory
+	g++ -o $(NAME) $(OBJ) $(CPPFLAGS) $(SFML) $(JB_LIB)
+
 
 clean:
-	rm -f $(OBJ)
+	@$(MAKE) clean -sC lib/ --no-print-directory
+	@rm -f $(OBJ)
+	@echo "\e[33mclean done\e[0m"
 
 fclean: clean
-	rm -f $(NAME)
+	@$(MAKE) fclean -sC lib/ --no-print-directory
+	@ rm -f $(NAME)
+	@ rm -f a.out
+	@echo "\e[1;31mfclean done\e[0m"
 
 re: fclean all
