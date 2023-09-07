@@ -1,2 +1,0 @@
-/usr/bin/ar qc libmyjbhelpers.a CMakeFiles/myjbhelpers.dir/src/bool/charIsNum.cpp.o "CMakeFiles/myjbhelpers.dir/src/file/get-json.cpp.o" CMakeFiles/myjbhelpers.dir/src/int/getNumber.cpp.o
-/usr/bin/ranlib libmyjbhelpers.a

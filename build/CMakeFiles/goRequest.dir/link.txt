@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/goRequest.dir/src/main.cpp.o -o /home/mohammed/Me/Mohammed/projects/goRequest/goRequest  -lsfml-system -lsfml-window -lsfml-audio -lsfml-graphics lib/jb/libmyjbhelpers.a 
