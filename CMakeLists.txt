@@ -7,31 +7,30 @@ project(${PROJECT_NAME})
 include_directories(include)
 
 file(GLOB header_files
+        "include/jb_int.hpp"
         "include/jb_array.hpp"
         "include/jb_bool.hpp"
         "include/jb_file.hpp"
-        "include/jb_int.hpp"
         "include/jb_src.hpp"
+        "include/go_request/macros.hpp"
+        "include/go_request/goRequest.hpp"
+        "include/go_request/button.hpp"
 )
 
 file(GLOB source_files
         "src/main.cpp"
+        "src/elements/GoRequest.cpp"
+        "src/elements/Button.cpp"
+        "src/elements/Colors.cpp"
 )
 
 set(SOURCES ${source_files})
 set(HEADERS ${header_files})
 set(CMAKE_CXX_STANDARD 11)
-
-# Include the "lib/jb" directory as a subdirectory
-add_subdirectory(lib/jb)
-
-# Set the output directory for the executable to the source root
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR})
 
+add_subdirectory(lib/jb)
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 
-# Link the required SFML libraries.
 target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-audio sfml-graphics)
-
-# Link your "myjbhelpers" library to the main executable
 target_link_libraries(${PROJECT_NAME} myjbhelpers)
