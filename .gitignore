@@ -20,4 +20,4 @@
 # Go workspace file
 go.work
 
-cmake-build-debug
+cmake-build-debug/
