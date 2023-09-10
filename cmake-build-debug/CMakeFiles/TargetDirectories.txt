@@ -1,0 +1,6 @@
+/home/mohammed/Me/Mohammed/projects/goRequest/cmake-build-debug/CMakeFiles/goRequest.dir
+/home/mohammed/Me/Mohammed/projects/goRequest/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/mohammed/Me/Mohammed/projects/goRequest/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/mohammed/Me/Mohammed/projects/goRequest/cmake-build-debug/lib/jb/CMakeFiles/myjbhelpers.dir
+/home/mohammed/Me/Mohammed/projects/goRequest/cmake-build-debug/lib/jb/CMakeFiles/edit_cache.dir
+/home/mohammed/Me/Mohammed/projects/goRequest/cmake-build-debug/lib/jb/CMakeFiles/rebuild_cache.dir

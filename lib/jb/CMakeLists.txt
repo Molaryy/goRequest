@@ -1,7 +1,9 @@
 add_library(myjbhelpers
     "src/bool/charIsNum.cpp"
-    "src/file/get-json.cpp"
+    "src/file/json_obj.cpp"
     "src/int/getNumber.cpp"
+    "src/array/strToArray.cpp"
+        src/vector/print_vector.cpp
 )
 
 

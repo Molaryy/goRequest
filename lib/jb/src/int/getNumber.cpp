@@ -1,5 +1,4 @@
-#include "iostream"
-#include "jb_bool.hpp"
+#include "jb_src.hpp"
 
 static int isNeg(const char *str)
 {

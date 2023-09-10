@@ -7,25 +7,24 @@ project(${PROJECT_NAME})
 include_directories(include)
 
 file(GLOB header_files
-        "include/jb_int.hpp"
-        "include/jb_array.hpp"
-        "include/jb_bool.hpp"
-        "include/jb_file.hpp"
-        "include/jb_src.hpp"
-        "include/go_request/macros.hpp"
-        "include/go_request/goRequest.hpp"
+        "include/jb_lib/jb_int.hpp"
+        "include/jb_lib/jb_array.hpp"
+        "include/jb_lib/jb_bool.hpp"
+        "include/jb_lib/jb_file.hpp"
         "include/go_request/button.hpp"
+        "include/go_request/macros.hpp"
+        "include/jb_src.hpp"
 )
 
 file(GLOB source_files
         "src/main.cpp"
-        "src/elements/GoRequest.cpp"
         "src/elements/Button.cpp"
         "src/elements/Colors.cpp"
 )
 
 set(SOURCES ${source_files})
-set(HEADERS ${header_files})
+set(HEADERS ${header_files}
+        include/jb_lib/jb_vector.hpp)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR})
 

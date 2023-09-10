@@ -3,18 +3,27 @@
 An app to test your APIs using the SFML library.
 
 
-### Install cmake
-```shell
-sudo apt-get install cmake
-```
+### Requirements
+- [SFML 2.6](https://www.sfml-dev.org/download/sfml/2.6.0/)
+- [CMake](https://cmake.org/install/)
+- [C++](https://linuxconfig.org/how-to-install-g-the-c-compiler-on-ubuntu-18-04-bionic-beaver-linux)
+
 ### Create the binary
 ```shell
-cmake -S . -B build/
-cd build/
-make
-cd ..
+./setup
 ```
-### Launch the project
+
+### Create the binary and executes the binary
+```shell
+./setup up
+```
+
+### Remove the binary and the content in the build/ folder
+```shell
+./setup clear
+```
+
+### Execute the binary
 ```shell
 ./goRequest
 ```
