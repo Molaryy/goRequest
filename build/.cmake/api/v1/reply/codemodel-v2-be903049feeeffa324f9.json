@@ -1,0 +1,88 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.26.3"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "lib/jb",
+					"jsonFile" : "directory-lib.jb-Debug-084f023aff812440f3de.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.26.3"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "lib/jb",
+					"targetIndexes" : 
+					[
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1
+					],
+					"name" : "goRequest",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "goRequest::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-goRequest-Debug-b0175708f348dbc2c92e.json",
+					"name" : "goRequest",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "myjbhelpers::@751a3c848e50945ed1b1",
+					"jsonFile" : "target-myjbhelpers-Debug-970907f6c8234be9edc3.json",
+					"name" : "myjbhelpers",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/mohammed/Me/Mohammed/projects/goRequest/build",
+		"source" : "/home/mohammed/Me/Mohammed/projects/goRequest"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 5
+	}
+}

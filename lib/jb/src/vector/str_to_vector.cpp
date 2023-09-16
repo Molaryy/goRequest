@@ -21,11 +21,17 @@ extern std::vector<std::string> str_to_vector(const char *str, const char *separ
 
     for (size_t i = 0; str[i]; i++) {
         newStr.clear();
-        for (; str[i] && !is_separator(str[i], separators); i++) {
-            newStr += str[i];
+        if (!str[i + 1] && str[i] && !is_separator(str[i], separators)) {
+            newStr.push_back(str[i]);
         }
-        if (!newStr.empty()){
-            strArray.push_back(newStr);
+        for (; str[i + 1] && !is_separator(str[i], separators); i++) {
+            newStr += str[i];
+            if (!str[i + 2]){
+                newStr += str[i + 1];
+            }
+        }
+        if (!newStr.empty()) {
+            strArray.emplace_back(newStr);
         }
     }
     return strArray;

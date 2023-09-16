@@ -1,9 +1,11 @@
 add_library(myjbhelpers
-    "src/bool/charIsNum.cpp"
+    "src/bool/char_is_num.cpp"
+    "src/bool/check_str_last_index.cpp"
     "src/file/json_obj.cpp"
-    "src/int/getNumber.cpp"
-    "src/array/strToArray.cpp"
-        src/vector/print_vector.cpp
+    "src/int/get_number.cpp"
+    "src/int/str_len.cpp"
+    "src/vector/print_vector.cpp"
+    "src/vector/str_to_vector.cpp"
 )
 
 
@@ -14,3 +16,4 @@ set_target_properties(myjbhelpers PROPERTIES
     CXX_STANDARD_REQUIRED YES
     CXX_EXTENSIONS NO
 )
+## target_compile_options(myjbhelpers PRIVATE -g)

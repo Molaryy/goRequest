@@ -54,10 +54,11 @@ void updateRenderWindow(sf::RenderWindow *window, goRequest app)
 
 void getJson()
 {
-    const char *filePath = "data/buttons.json";
+    const char *filePath = "data/init-go-request.json";
     JsonObj json(filePath);
 
     json.getFile();
+    json.parseDataToJsonObj();
 }
 
 int main()
@@ -73,11 +74,5 @@ int main()
     updateRenderWindow(&window, app);
      */
     getJson();
-    /*std::string str = "123:456:789:ABC:DEF";
-    std::cout << str.substr(0, 3) << "\n";
-    std::cout << str.substr(4, 7 - 4) << "\n";
-    std::cout << str.substr(8, 11 - 8) << "\n";
-    std::cout << str.substr(12, 15 - 12) << "\n";
-    std::cout << str.substr(16, 19 - 16) << "\n";*/
     return (0);
 }
