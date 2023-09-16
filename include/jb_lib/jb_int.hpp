@@ -14,4 +14,11 @@ using namespace std;
  */
 extern int getNumber(const char *str);
 
+/**
+ * @brief get the size of a string
+ * @param std::string
+ * @return integer corresponding to the size of the string
+ * */
+extern size_t str_len(std::string);
+
 #endif /* JB_INT_HPP */

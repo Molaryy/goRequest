@@ -3,7 +3,7 @@
 //
 
 #ifndef GOREQUEST_JB_VECTOR_HPP
-#define GOREQUEST_JB_VECTOR_HPP
+    #define GOREQUEST_JB_VECTOR_HPP
 
 /**
  * @brief creates a vector with a string parsed with the separators of your choice
@@ -15,7 +15,22 @@ extern std::vector<std::string> str_to_vector(const char *str, const char *separ
 
 /**
  * @brief prints a std::vector container any value
- * @param const std::vector<void *> &vector
+ * @param template<T> type that is printable
+ * @param debugMode false to print normal vector or true to print vector with debug strings
  */
-extern void print_vector(const std::vector<void *> &vector);
+template <typename T>
+extern void print_vector(const std::vector<T> &vector, bool debugMode)
+{
+    if (vector.empty()){
+        std::cerr << "The vector is empty\n";
+    }
+    for (const auto &inVector : vector) {
+        if (!debugMode){
+            std::cout << inVector << std::endl;
+        } else {
+            std::cout << "[ " << inVector << " ]" << "\n\n";
+        }
+    }
+}
+
 #endif //GOREQUEST_JB_VECTOR_HPP

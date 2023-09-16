@@ -27,6 +27,12 @@ class JsonObj {
     * @return true if the filePath given exists else returns false
     */
     bool getFile();
+
+    /**
+    * @brief parses the std::vector<std::string> data into a json type key value
+    * @class JsonObj
+    */
+    void parseDataToJsonObj();
 };
 
 #endif /* GOREQUEST_JS_FILE_HPP */

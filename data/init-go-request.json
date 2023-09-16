@@ -1,0 +1,16 @@
+[
+  {
+      "containerId": "176925d2-ebd2-4bdc-ba22-9b59dc484261",
+      "containerName": "FAUGERES residence les cerisiers",
+      "score": {
+        "changeVariation": 0.004122497055359246,
+        "dataMoreMiddleLevel": 0,
+        "distance": 0.22673474662483728,
+        "highCollects": 1,
+        "levelMoreHighThreshold": 0,
+        "rateDataMoreMiddleLevel": 23.25509363833468,
+        "score": 1.2308572436801966
+      },
+      "key": 123
+  }
+]
