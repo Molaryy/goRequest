@@ -4,8 +4,7 @@ add_library(myjbhelpers
     "src/file/json_obj.cpp"
     "src/int/get_number.cpp"
     "src/int/str_len.cpp"
-    "src/vector/print_vector.cpp"
-    "src/vector/str_to_vector.cpp"
+        "src/vector/str_to_vector.cpp"
 )
 
 

@@ -4,4 +4,6 @@ a.out
 
 .env
 
-
+# generated folders
+.idea
+.vscode

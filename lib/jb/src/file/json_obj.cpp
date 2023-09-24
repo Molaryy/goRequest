@@ -3,63 +3,52 @@
 //
 
 #include "jb_src.hpp"
+#include "jb_lib/jb_file.hpp"
+
 #include <unistd.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 
-enum {
-    INT_TYPE = 0,
-    SIZE_T_TYPE = 1,
-    CHAR_TYPE = 2,
-    BOOL_TYPE = 3,
-    DOUBLE_TYPE = 4,
-    STR_TYPE = 5,
-    VECTOR_STR_TYPE = 6,
-    VECTOR_INT_TYPE = 7,
-};
+#include <utility>
 
-typedef struct jsonObjType_s {
-    size_t type;
-    int jb_int;
-    size_t jb_size_t;
-    char jb_ch;
-    bool jb_bool;
-    double jb_double;
-    std::string jb_str;
-    std::vector<std::string> jb_vect_str;
-    std::vector<int> jb_vect_int;
-} jsonObjType_t;
-
-typedef struct jb_json_s {
-    char *key = nullptr;
-    struct jsonObjType_s value;
-    struct jb_json_s *next = nullptr;
-    struct jb_json_s *prev = nullptr;
-} jb_json_t;
-
-jb_json_t *create_jb_json(const jsonObjType_t& type, size_t enum_type)
+jb_json_t *create_jb_json(jsonObjType_t value, size_t enum_type)
 {
-    jb_json_t *node = static_cast<jb_json_t *>(malloc(sizeof(jb_json_t)));
+    auto *node = new jb_json_t;
 
     if (!node) {
         return nullptr;
     }
     node->value.type = enum_type;
-    switch (enum_type) {
-        case INT_TYPE: node->value.jb_int = type.jb_int; break;
-        case SIZE_T_TYPE: node->value.jb_size_t = type.jb_size_t; break;
-        case CHAR_TYPE: node->value.jb_ch = type.jb_ch; break;
-        case BOOL_TYPE: node->value.jb_bool = type.jb_bool; break;
-        case DOUBLE_TYPE: node->value.jb_double = type.jb_double; break;
-        case STR_TYPE: node->value.jb_str = type.jb_str; break;
-        case VECTOR_STR_TYPE: node->value.jb_vect_str = type.jb_vect_str; break;
-        case VECTOR_INT_TYPE: node->value.jb_vect_int = type.jb_vect_int; break;
-        default: break;
-    }
+    node->value.jb_int = value.jb_int;
+    node->value.jb_size_t = value.jb_size_t;
+    node->value.jb_ch = value.jb_ch;
+    node->value.jb_bool = value.jb_bool;
+    node->value.jb_double = value.jb_double;
+    node->value.jb_str = value.jb_str;
+    node->value.jb_vect_str = value.jb_vect_str;
+    node->value.jb_vect_int = value.jb_vect_int;
     node->next = nullptr;
     node->prev = nullptr;
     return node;
 }
+
+void add_json_element(jb_json_t **node, jsonObjType_t value)
+{
+    auto *new_node = static_cast<jb_json_t *>(malloc(sizeof(jb_json_t)));
+
+    if (!new_node) {
+        std::cerr << "malloc failed add_json_element\n";
+        return;
+    }
+    new_node->prev = *node;
+    new_node->value = std::move(value);
+    new_node->next = nullptr;
+    for (; (*node)->next; *node = (*node)->next);
+    (*node)->next = new_node;
+    for (; (*node)->prev; *node = (*node)->prev);
+}
+
+
 
 JsonObj::JsonObj(const char *filePath) {
     this->filePath = filePath;
@@ -86,7 +75,7 @@ bool JsonObj::getFile()
     return true;
 }
 
-static char *string_to_char_string(std::string str)
+static char *std_str_to_char_str(std::string str)
 {
     char *newStr = (char *)malloc(sizeof(char) * (str.size() + 1));
 
@@ -120,49 +109,89 @@ static std::string clearKeyInQuotes(std::string key, bool isKey)
     if (isKey) {
         newStr.push_back(':');
     }
+
     return newStr;
+}
+
+void print_link_json(jb_json_t *node)
+{
+    for (; node; node = node->next) {
+        switch (node->value.type) {
+            case JB_INT_TYPE: std::cout << node->value.jb_int << "\n"; break;
+            case JB_SIZE_T_TYPE: std::cout << node->value.jb_size_t << "\n"; break;
+            case JB_CHAR_TYPE: std::cout << node->value.jb_ch << "\n"; break;
+            case JB_BOOL_TYPE: std::cout << node->value.jb_bool << "\n"; break;
+            case JB_DOUBLE_TYPE: std::cout << node->value.jb_double << "\n"; break;
+            case JB_STR_TYPE: std::cout << node->value.jb_str << "\n"; break;
+            case JB_VECTOR_STR_TYPE: print_vector(node->value.jb_vect_str, false); break;
+            case JB_VECTOR_INT_TYPE: print_vector(node->value.jb_vect_int, false); break;
+        }
+    }
+}
+
+static void getDataParsed(std::vector<std::string> lineVector, bool addParent, std::vector<std::string> parents)
+{
+    jb_json_t *node = nullptr;
+
+    for (size_t i = 0; i < lineVector.size(); i++) {
+        jsonObjType_t value = {};
+
+        if (check_str_last_index(lineVector[i], ':')) {
+            lineVector[i] = clearKeyInQuotes(lineVector[i], false);
+            if (addParent && i + 1 < lineVector.size() && !check_str_last_index(lineVector[i + 1], ':')) {
+                std::cout << parents[0] << "/";
+            }
+            std::cout << lineVector[i];
+            std::cout << " => ";
+            std::string str;
+            bool canStoreString = false;
+            for  (; i + 1 < lineVector.size() && !check_str_last_index(lineVector[i + 1], ':'); i++){
+                if (check_str_last_index(lineVector[i + 1], ','))
+                {
+                    lineVector[i + 1].pop_back();
+                }
+                if (lineVector[i + 1][0] == '\"') {
+                    canStoreString = true;
+                }
+                if (canStoreString) {
+                    str += lineVector[i + 1];
+                    if (i + 2 < lineVector.size() && !check_str_last_index(lineVector[i + 2], ':')) {
+                        str += " ";
+                    }
+                }
+                std::cout << lineVector[i + 1] << " ";
+            }
+            if (!str.empty()) {
+                node = create_jb_json(value, JB_STR_TYPE);
+                std::cout << "[" << str << "]\n";
+            }
+            std::cout << "\n\n";
+        }
+    }
 }
 
 extern void JsonObj::parseDataToJsonObj()
 {
     char *line = nullptr;
     std::vector<std::string> parents;
-    size_t j = 0;
     bool addParent = false;
+    std::vector<std::string> lineVector;
+    std::vector<std::string> parentValidator;
 
     for (const auto &inData : data) {
-        if (!(line = string_to_char_string(inData))) {
+        if (!(line = std_str_to_char_str(inData)))
             return;
-        }
-        std::vector<std::string> lineVector = str_to_vector(line, " \t\n,{}[]");
-        std::vector<std::string> parentValidator = str_to_vector(line, " \t\n,");
 
+        lineVector = str_to_vector(line, " \t\n,{}[]");
+        parentValidator = str_to_vector(line, " \t\n,");
         free(line);
 
         if (check_str_last_index(parentValidator[0], ':') && parentValidator[1][0] == '{') {
             parents.push_back(clearKeyInQuotes(parentValidator[0], false));
             addParent = true;
-        } else if (addParent && parentValidator[0][0] == '}'){
+        } else if (addParent && parentValidator[0][0] == '}') {
             addParent = false;
         }
-
-        for (size_t i = 0; i < lineVector.size(); i++) {
-            if (check_str_last_index(lineVector[i], ':')) {
-                lineVector[i] = clearKeyInQuotes(lineVector[i], false);
-                if (addParent && i + 1 < lineVector.size() && !check_str_last_index(lineVector[i + 1], ':')){
-                    std::cout << parents[0] << "/";
-                }
-                std::cout << lineVector[i];
-                std::cout << " => ";
-                for  (; i + 1 < lineVector.size() && !check_str_last_index(lineVector[i + 1], ':'); i++) {
-                    std::string value;
-                    if (check_str_last_index(lineVector[i + 1], ',')) {
-                        lineVector[i + 1].pop_back();
-                    }
-                    std::cout << lineVector[i + 1] << " ";
-                }
-                std::cout << "\n\n";
-            }
-        }
+        getDataParsed(lineVector, addParent, parents);
     }
 }

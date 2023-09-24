@@ -7,13 +7,13 @@ if [ "$1" != "clear" ]; then
   cd ..
 fi
 
-clear
 if [ $# -eq 1 ]; then
   if [ "$1" = "up" ]; then
     ./goRequest
   fi
   if [ "$1" = "clear" ]; then
       rm build/* -rf
+      rm build/.cmake/ -rf
       rm -f goRequest
     fi
 fi
