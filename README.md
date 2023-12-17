@@ -1,6 +1,6 @@
 # goRequest
 
-An app to test your APIs using the SFML library.
+An app to test your APIs using the SFML library. (Not finished)
 
 
 ### Requirements
