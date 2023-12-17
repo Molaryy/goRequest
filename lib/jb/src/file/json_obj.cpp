@@ -5,12 +5,6 @@
 #include "jb_src.hpp"
 #include "jb_lib/jb_file.hpp"
 
-#include <unistd.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-
-#include <utility>
-
 jb_json_t *create_jb_json(jsonObjType_t value, size_t enum_type)
 {
     auto *node = new jb_json_t;
@@ -48,45 +42,16 @@ void add_json_element(jb_json_t **node, jsonObjType_t value)
     for (; (*node)->prev; *node = (*node)->prev);
 }
 
-
-
 JsonObj::JsonObj(const char *filePath) {
     this->filePath = filePath;
 };
 
 bool JsonObj::getFile()
 {
-    int fd = open(filePath, O_RDONLY);
-    char *buffer;
-    struct stat info = {};
-
-    if (fd < 0 || stat(filePath, &info) < 0) {
-        return false;
-    }
-    buffer = (char *)malloc(sizeof(char) * (info.st_size + 1));
-    if (!buffer) {
-        return false;
-    }
-    buffer[info.st_size] = '\0';
-    read(fd, buffer, info.st_size);
+    char *buffer = get_file_content(filePath);
     data = str_to_vector(buffer, "\n");
     free(buffer);
-    close(fd);
     return true;
-}
-
-static char *std_str_to_char_str(std::string str)
-{
-    char *newStr = (char *)malloc(sizeof(char) * (str.size() + 1));
-
-    if (!newStr){
-        return nullptr;
-    }
-    for (size_t i = 0; str[i]; i++) {
-        newStr[i] = str[i];
-    }
-    newStr[str.size()] = '\0';
-    return newStr;
 }
 
 static std::string clearKeyInQuotes(std::string key, bool isKey)

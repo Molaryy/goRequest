@@ -33,4 +33,19 @@ extern void print_vector(const std::vector<T> &vector, bool debugMode)
     }
 }
 
+/**
+ * @brief gets the length of a vector
+ * @param template<T> type that is iterable
+ */
+template <typename T>
+extern size_t vector_len(const std::vector<T> &vector)
+{
+    size_t len = 0;
+
+    for (const auto &inVector : vector) {
+        len++;
+    }
+    return len;
+}
+
 #endif //GOREQUEST_JB_VECTOR_HPP

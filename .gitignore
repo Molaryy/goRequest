@@ -4,6 +4,10 @@ a.out
 
 .env
 
+# build folder
+cmake-build-debug/
+build
+
 # generated folders
 .idea
 .vscode

@@ -54,8 +54,7 @@ void updateRenderWindow(sf::RenderWindow *window, goRequest app)
 
 void getJson()
 {
-    const char *filePath = "data/init-go-request.json";
-    JsonObj json(filePath);
+    JsonObj json(env_value("GR_BUTTON_FILEPATH"));
 
     json.getFile();
     json.parseDataToJsonObj();
@@ -63,6 +62,7 @@ void getJson()
 
 int main()
 {
+    getJson();
     /*
      * sf::VideoMode video = {WIDTH, HEIGHT, 32};
     sf::RenderWindow window(video, "Go request");
@@ -73,6 +73,5 @@ int main()
     app.initApp(button);
     updateRenderWindow(&window, app);
      */
-    getJson();
     return (0);
 }

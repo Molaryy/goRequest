@@ -66,4 +66,18 @@ class JsonObj {
     void parseDataToJsonObj();
 };
 
+/**
+* @brief gets the content of a file
+* @param const char *filePath
+* @returns buffer of nullptr if something went wrong
+*/
+extern char *get_file_content(const char *filepath);
+
+/**
+* @brief gets the content of .env
+* @param const char *key
+* @returns content of the key value
+*/
+extern char *env_value(const char *key);
+
 #endif /* _JS_FILE_HPP */

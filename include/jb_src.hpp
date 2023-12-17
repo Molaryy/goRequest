@@ -14,6 +14,8 @@
     #include "jb_lib/jb_bool.hpp"
     #include "jb_lib/jb_file.hpp"
     #include "jb_lib/jb_vector.hpp"
+    #include "jb_lib/jb_macros.hpp"
+    #include "jb_lib/jb_str.hpp"
     #include "go_request/macros.hpp"
     #include "go_request/button.hpp"
 
