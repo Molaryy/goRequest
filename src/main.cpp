@@ -54,7 +54,7 @@ void updateRenderWindow(sf::RenderWindow *window, goRequest app)
 
 void getJson()
 {
-    JsonObj json(env_value("GR_BUTTON_FILEPATH"));
+    JsonObj json(GR_BUTTON_FILEPATH);
 
     json.getFile();
     json.parseDataToJsonObj();

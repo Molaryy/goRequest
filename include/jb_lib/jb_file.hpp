@@ -17,6 +17,8 @@ enum {
 };
 
 typedef struct jsonObjType_s {
+    char *path;
+    bool isParent;
     size_t type;
     int jb_int;
     size_t jb_size_t;

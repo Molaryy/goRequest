@@ -94,7 +94,7 @@ void print_link_json(jb_json_t *node)
     }
 }
 
-static void getDataParsed(std::vector<std::string> lineVector, bool addParent, std::vector<std::string> parents)
+static void getDataParsed(std::vector<std::string> lineVector,std::vector<std::string> parents)
 {
     jb_json_t *node = nullptr;
 
@@ -103,8 +103,11 @@ static void getDataParsed(std::vector<std::string> lineVector, bool addParent, s
 
         if (check_str_last_index(lineVector[i], ':')) {
             lineVector[i] = clearKeyInQuotes(lineVector[i], false);
-            if (addParent && i + 1 < lineVector.size() && !check_str_last_index(lineVector[i + 1], ':')) {
-                std::cout << parents[0] << "/";
+            if (i + 1 < lineVector.size() && !check_str_last_index(lineVector[i + 1], ':')) {
+                std::string path = vector_to_string(parents, "/");
+                if (path.size() > 0) {
+                    std::cout << path << "/";
+                }
             }
             std::cout << lineVector[i];
             std::cout << " => ";
@@ -139,24 +142,27 @@ extern void JsonObj::parseDataToJsonObj()
 {
     char *line = nullptr;
     std::vector<std::string> parents;
-    bool addParent = false;
     std::vector<std::string> lineVector;
     std::vector<std::string> parentValidator;
 
     for (const auto &inData : data) {
-        if (!(line = std_str_to_char_str(inData)))
+        if (!(line = std_str_to_char_str(inData))) {
             return;
+        }
 
         lineVector = str_to_vector(line, " \t\n,{}[]");
         parentValidator = str_to_vector(line, " \t\n,");
-        free(line);
 
         if (check_str_last_index(parentValidator[0], ':') && parentValidator[1][0] == '{') {
             parents.push_back(clearKeyInQuotes(parentValidator[0], false));
-            addParent = true;
-        } else if (addParent && parentValidator[0][0] == '}') {
-            addParent = false;
+        } else if (parentValidator[0][0] == '}') {
+            if (parents.size() > 0) {
+                parents.pop_back();
+            }
         }
-        getDataParsed(lineVector, addParent, parents);
+
+        getDataParsed(lineVector, parents);
+
+        free(line);
     }
 }

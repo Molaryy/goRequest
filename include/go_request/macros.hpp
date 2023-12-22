@@ -8,6 +8,6 @@
     #define WIDTH 1920
     #define HEIGHT 1080
     #define _NB_BUTTONS 1
-    #define BUTTONS_CONFIG_FILEPATH "data/init-go-request.json"
+    #define GR_BUTTON_FILEPATH "data/init-go-request.json"
 
 #endif //GOREQUEST_MACROS_HPP

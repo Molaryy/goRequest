@@ -1,5 +1,7 @@
 #!/bin/bash
 
+clear
+
 if [ "$1" != "clear" ]; then
   cmake -S . -B build/
   cd build/ || exit 1
@@ -11,7 +13,7 @@ if [ $# -eq 1 ]; then
   if [ "$1" = "up" ]; then
     echo
     echo "----------------------"
-    echo "|  YOUR RESULT HERE  |"
+    echo "|      goRequest     |"
     echo "----------------------"
     echo
     ./goRequest

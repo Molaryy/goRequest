@@ -9,7 +9,14 @@
         "highCollects": 1,
         "levelMoreHighThreshold": 0,
         "rateDataMoreMiddleLevel": 23.25509363833468,
-        "score": 1.2308572436801966
+        "score": 1.2308572436801966,
+        "test": {
+          "caca": 14,
+          "hihi": {
+            "name": "Mohammed"
+          }
+        },
+        "random": 12
       },
       "key": 123
   }
