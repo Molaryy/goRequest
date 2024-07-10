@@ -10,17 +10,17 @@ An app to test your APIs using the SFML library. (Not finished)
 
 ### Create the binary
 ```shell
-./setup
+./setup.sh
 ```
 
 ### Create the binary and executes the binary
 ```shell
-./setup up
+./setup.sh up
 ```
 
 ### Remove the binary and the content in the build/ folder
 ```shell
-./setup clear
+./setup.sh clear
 ```
 
 ### Execute the binary
